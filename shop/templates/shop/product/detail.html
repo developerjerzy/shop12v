@@ -21,6 +21,37 @@
 
 
         {{ product.description|linebreaks }}
+        {% with comments.count as total_comments %}
+            <h2>Количество комментариев: {{ total_comments }} </h2>
+        {% endwith %}
+
+        {% for comment in comments %}
+            <div class="comment">
+                <p class="info">
+                    Прокомментировано: {{ forloop.counter }}  {{ comment.name }}
+                    {{ comment.created }}
+                </p>
+                {{ comment.body|linebreaks }}
+            </div>
+        {% empty %}
+            <p>Тут пока нет комментариев.</p>
+        {% endfor %}
+
+        {% if new_comment %}
+            <h2>Ваш комментарий был добавлен.</h2>
+        {% else %}
+            <h2>Добавить новый комментарий:</h2>
+            <form action="." method="post">
+                {{ comment_form.as_p }}
+                {% csrf_token %}
+                <p><input type="submit" value="Добавить"></p>
+            </form>
+        {% endif %}
+    <p>
+        <br>
+        <br>
+    </p>
+
         <h4><b>Заказать товар можно по адресу: г. Гродно, улица Карского, 4в. моб. тел. +37529 5312123 (мтс)</b></h4>
     </div>
 {% endblock %}
