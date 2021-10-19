@@ -6,6 +6,13 @@ from .forms import CommentForm
 
 
 def product_list(request, category_slug=None):
+    """
+    Функция отображения списка продуктов
+
+    Отвечает за отображение списка продуктов на странице
+    Благодаря пагинации количество продуктов отображает в количестве 3
+    штук на одной странице.
+    """
     category = None
     categories = Category.objects.all()
     products = Product.objects.filter(available=True)
@@ -31,6 +38,12 @@ def product_list(request, category_slug=None):
 
 
 def product_detail(request, id, slug):
+    """
+    Функция отображения информации о продукте
+
+    Отвечает за детальное отображение информации о продукте
+    а также за отображение комментариев о данном продукте.
+    """
     product = get_object_or_404(Product, id=id, slug=slug, available=True)
     cart_product_form = CartAddProductForm()
 

@@ -18,6 +18,20 @@ class Category(models.Model):
 
 
 class Product(models.Model):
+    """
+    Создание в базе данных таблицы продуктов
+
+    Параметры:
+    Категория продуктов
+    Название
+    Флаг
+    Фото товара
+    Описание
+    Цена
+    Доступен или нет
+    Дата создания
+    Дата обновления
+    """
     category = models.ForeignKey(Category,
                                  related_name='products',
                                  on_delete=models.CASCADE)
@@ -43,6 +57,17 @@ class Product(models.Model):
 
 
 class Comment(models.Model):
+    """
+    Класс отвечает за создание в базе данных таблицы комментариев
+
+    Пост опубликованный пост, к которому относится комментарий
+    Имя того кто создал комментарий
+    Емейл человека который создал комментарий
+    Тело комментария
+    Дата создания комментария
+    Дата обновления комментария
+    Дата когда комментарий был опубликован
+    """
     post = models.ForeignKey(Product, on_delete=models.CASCADE, related_name='comments',verbose_name=u"Пользователь")
     name = models.CharField(max_length=80,verbose_name=u"Имя")
     email = models.EmailField()
